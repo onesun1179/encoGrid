@@ -1,0 +1,101 @@
+
+
+* {
+	box-sizing : border_box;
+}
+
+[data-enco_map="tb_wp"] {
+	
+	height : calc(100% - 37px);	
+	padding : 0;
+}
+
+[data-enco_map="tb_hd_wp"] > div {
+	height : 100%;
+	position : absolute;
+	top : 0px;
+}
+
+[data-enco_map="tb_wp"] * {
+/* 	border : solid; */
+}
+
+[data-enco_map="tb_wp"] table {
+	width : 100%;
+	height : 100%;
+	overflow : hidden;
+	
+	table-layout : fixed;
+	border-collapse: collapse;
+	cellspacing : 0;
+	dellpadding : 0;
+	background-color : white;
+}
+
+
+
+[data-enco_map="tb_wp"] {
+	border : solid;
+	overflow : auto; 
+}
+
+[data-enco_map="tb_wp"] td {
+	margin : 0;
+	padding: 0;
+}
+
+[data-enco_map="tb_wp"] > div {
+	position : relative;
+	overflow : auto;
+}
+[data-enco_map="sd_hd_wp"] {
+	position : relative;
+	overflow : hidden;
+	
+}
+
+[data-enco_map="sd_tb_wp"] {
+	text-align : center;
+}
+
+[data-enco_map="tb_wp"] > div {
+	
+	
+}
+
+
+
+[data-enco_map="pan_ctl_btn_grp"] {
+	float : right;
+}
+[data-enco_map="pan_ctl_btn_grp"] button {
+	height : 30px
+}
+
+[data-enco_map="pan_hd"] {
+	width : 100%;
+	height : 37px;
+	display : inline_block;
+	word-wrap : break_word;
+}
+[data-enco_map="pan_hd"] div {
+	display : inline_block;
+}
+
+[data-enco_map="pan_titl"] {
+}
+
+
+
+/* bar */
+[data-enco_map="tb_sd_br"] {
+	position : absolute;
+	right : 0;
+	border-left : 1px solid #ccc;
+}
+[data-enco_map="tb_bt_br"] {
+	position : absolute;
+	bottom : 0;
+	border-top : 1px solid #ccc;
+}
+

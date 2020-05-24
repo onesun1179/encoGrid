@@ -1,0 +1,45 @@
+.ui-grid-table-header, .ui-grid-table-body, .ui-grid-table-foot{
+	border : solid;
+}
+
+table * {
+
+}
+
+#grid {
+}
+
+
+
+html {
+	height : 100%;
+	width : 100%;
+}
+
+body {
+	height : 100%;
+	width : 100%;
+}
+
+th {
+	background-color : red;
+}
+td {
+	background-color : none;
+}
+
+.testTable *{
+	border : solid
+}
+.testTable {
+	table-layout : fixed;
+	overflow : scroll;
+}
+
+
+/**************************************************************************/
+
+
+.enco_grid_tb_wp td, .enco_grid_tb_wp th {
+	border : solid
+}
