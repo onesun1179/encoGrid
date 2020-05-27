@@ -247,11 +247,21 @@
 			},
 		}
 		
-		this._create = function() {
+		/*    private 
+         * @ 메소드 명  	    : (SRCH) _create 
+         * @ 설명				: 최초 그리드 생성
+         * @ save prototype : 
+         * @ parameter  	: undefined
+         * @ return  		: undefined
+         */
+		var _create = function _create() {
+		    
+		    _saveColumn.call(this, this.config.header.columns)
+		    
+		    console.log(this)
 			
 			var cls = this.classes,
 				 dg = this.dataGroup,
-		 columnInfo = this._getColumnStrObj.call(this, this.config.header.columns),
 		sideColumns = this._getSideColumns.call(this);
 			// 자식 요소 모두 삭제
 			this.element.empty()
@@ -261,7 +271,7 @@
 						.width(this._convertToPx(window.innerWidth, this.config.panel.width))
 				    	.addClass(cls.pan)
 				    	.append(
-				    			  "<div class=\""+ cls.pan_hd + "\" "+ " " + dg.map.pan_hd + " style=\"height : "+this.gridStateInfos.panel.titleHeight+"px\">"
+				    			  "<div class=\""+ cls.pan_hd + "\" "+ " " + dg.map.pan_hd + ">"
 				    		     	+ "<div class=\""+ cls.pan_titl + "\" "+ " " + dg.map.pan_titl + ">"
 				    		     		+ "<span> " + this.config.panel.title +"</span>"
 				    		     	+ "</div>"
@@ -269,80 +279,59 @@
 				    		     	+ "</div>"
 				    		     + "</div>"
 				    		     
-				    		     + "<div class=\""+ cls.tb_wp + "\" "+  dg.map.tb_wp +" style=\"height : "+ this.gridStateInfos.panel.tableSumHeight +"px\">"
+				    		     + "<div class=\""+ cls.tb_wp + "\" "+  dg.map.tb_wp + ">"
 				    		     
-				    		     	+ "<div class=\""+ cls.tb_hd_wp + "\" "+ " " + dg.map.tb_hd_wp + " style=\"height : "+ this.gridStateInfos.head.height +"px\">"
+				    		     	+ "<div class=\""+ cls.tb_hd_wp + "\" "+ " " + dg.map.tb_hd_wp + ">"
 				    		     	
 				    		     		// Side Header Zone
-				    		     		+"<div class=\""+ cls.sd_hd_tb + "\" "+ " " + dg.map.sd_hd_wp+" style=\" left : 0px; width:"+sideColumns.width+"px;\">"
+				    		     		+"<div class=\""+ cls.sd_hd_tb + "\" "+ " " + dg.map.sd_hd_wp+">"
 				    		     			+ "<table class=\""+ cls.sd_hd_tb + "\" "+ " " + dg.map.sd_hd_tb+">"
-				    		     				+ sideColumns.elStr
 				    		     			+ "</table>"
 				    		     		+ "</div>"
 				    		     		
 				    		     		// Left Header Zone
-				    		     		+ "<div class=\""+ cls.lf_hd_wp + "\" "+ " " + dg.map.lf_hd_wp+" style=\" left : " + sideColumns.width + "px; width:"+columnInfo.leftWidth+"px\">"
+				    		     		+ "<div class=\""+ cls.lf_hd_wp + "\" "+ " " + dg.map.lf_hd_wp+">"
 				    		     			+ "<table class=\""+ cls.lf_hd_tb + "\" "+ " " + dg.map.lf_hd_tb+">"
-				    		     				+ "<colgroup>"
-				    		     					+ columnInfo.leftColgroup
-				    		     						+ "</colgroup>"
-				    		     				+ columnInfo.leftColumns
 				    		     			+ "</table>"
 				    		     		+ "</div>"
 				    		     		
 				    		     		// Body Header Zone
-				    		     		+ "<div class=\""+ cls.bd_hd_wp + "\" "+ " " + dg.map.bd_hd_wp+" style=\" left : " + (sideColumns.width + columnInfo.leftWidth) + "px; width:"+columnInfo.bodyWidth+"px\">"
+				    		     		+ "<div class=\""+ cls.bd_hd_wp + "\" "+ " " + dg.map.bd_hd_wp+">"
 				    		     			+ "<table class=\""+ cls.bd_hd_tb + "\" "+ " " + dg.map.bd_hd_tb +">"
-				    		     				+ "<colgroup>"
-				    		     					+ columnInfo.bodyColgroup
-				    		     				+ "</colgroup>"
-				    		     				+ columnInfo.bodyColumns
 				    		     			+ "</table>"
 				    		     		+ "</div>"
 				    		     		
 				    		     	+ "</div>"
 				    		     	
-				    		     	+ "<div class=\""+ cls.tb_bd_wp + "\" "+ " " + dg.map.tb_bd_wp +" style=\"height : "+ this.gridStateInfos.body.height +"px\">"
+				    		     	+ "<div class=\""+ cls.tb_bd_wp + "\" "+ " " + dg.map.tb_bd_wp +">"
 				    		     		// Side Body Zone
-				    		     		+ "<div class=\""+ cls.sd_tp_wp + "\" "+ " " + dg.map.sd_tp_wp + "style=\" left : 0px; width:"+sideColumns.width+"px;\">"
+				    		     		+ "<div class=\""+ cls.sd_tp_wp + "\" "+ " " + dg.map.sd_tp_wp + ">"
 				    		     			+ "<table class=\""+ cls.sd_tp_tb + "\" "+ " " + dg.map.sd_tp_tb +"></table>"
 				    		     		+ "</div>"
 				    		     		
-				    		     		+ "<div class=\""+ cls.sd_bd_wp + "\" "+ " " + dg.map.sd_bd_wp + "style=\" left : 0px; width:"+sideColumns.width+"px;\">"
+				    		     		+ "<div class=\""+ cls.sd_bd_wp + "\" "+ " " + dg.map.sd_bd_wp + ">"
 				    		     			+ "<table class=\""+ cls.sd_bd_tb + "\" "+ " " + dg.map.sd_bd_tb +"></table>"
 				    		     		+ "</div>"
 				    		     		
 				    		     		// Left Body Zone
-				    		     		+ "<div class=\""+ cls.lf_tp_wp + "\" "+ " " + dg.map.lf_tp_wp + " style=\" left : " + sideColumns.width + "px; width:"+columnInfo.leftWidth+"px\">"
+				    		     		+ "<div class=\""+ cls.lf_tp_wp + "\" "+ " " + dg.map.lf_tp_wp + ">"
 					    		     		+ "<table class=\""+ cls.lf_tp_tb + "\" "+ " " + dg.map.lf_tp_tb +">"
-					    		     			+ "<colgroup>"
-					    		     				+ columnInfo.leftColgroup
-					    		     			+ "</colgroup>"
 					    		     		+ "</table>"
 					    		     	+ "</div>"
 					    		     	
-					    		     	+ "<div class=\""+ cls.lf_bd_wp + "\" "+ " " + dg.map.lf_bd_wp + " style=\" left : " + sideColumns.width + "px; width:"+columnInfo.leftWidth+"px\">"
+					    		     	+ "<div class=\""+ cls.lf_bd_wp + "\" "+ " " + dg.map.lf_bd_wp + ">"
 				    		     			+ "<table class=\""+ cls.lf_bd_tb + "\" "+ " " + dg.map.lf_bd_tb +">"
-					    		     			+ "<colgroup>"
-					    		     				+ columnInfo.leftColgroup
-					    		     			+ "</colgroup>"
 					    		     		+ "</table>"
 					    		     	+ "</div>"
 				    		     	
 					    		     	// Body Body Zone
 					    		     	+ "<div class=\""+ cls.bd_tp_wp + "\" "+ " " + dg.map.bd_tp_wp + ">"
 					    		     		+ "<table class=\""+ cls.bd_tp_tb + "\" "+ " " + dg.map.bd_tp_tb +">"
-					    		     			+ "<colgroup>"
-					    		     				+ columnInfo.bodyColgroup
-					    		     			+ "</colgroup>"
 					    		     		+ "</table>"
 					    		     	+ "</div>"
 					    		     	
 					    		     	+ "<div class=\""+ cls.bd_bd_wp + "\" "+ " " + dg.map.bd_bd_wp + ">"
 					    		     		+ "<table class=\""+ cls.bd_bd_tb + "\" "+ " " + dg.map.bd_bd_tb +">"
-					    		     			+ "<colgroup>"
-					    		     				+ columnInfo.bodyColgroup
-					    		     			+ "</colgroup>"
 					    		     		+ "</table>"
 					    		     	+ "</div>"
 				    		     		
@@ -358,15 +347,22 @@
 				    		     + "</div>"
 				    	);
 			
-			this._setRefEl();
+			_saveRefAddress.call(this);
 			
-			this._setWindowResizeControl();
+			_setWindowResizeControl.call(this);
 			
 			this.setControlButton()
-		},
+		}
 		
 		
-		this._setWindowResizeControl = function() {
+		/* 
+         * @ 메소드 명  	    : (SRCH) _setWindowResizeControl
+         * @ 설명				: 화면 크기 변경 시, 그리드 최초 생성 시 발현
+         * @ save prototype : 
+         * @ parameter  	: 
+         * @ return  		:  
+         */
+		var _setWindowResizeControl = function _setWindowResizeControl() {
 			console.log(this)
 			function _resizeCallBack() {
 				console.log(this)
@@ -376,52 +372,185 @@
 			_resizeCallBack()
 		}
 		
-		
-		
+		/* private
+         * @ 메소드 명          : (SRCH) _saveList
+         * @ 설명             : 객체 내 리스트 저장
+         * @ save prototype : encoGrid.list
+         * @ parameter      : {array} list
+         * @ return         : undefined 
+         * @ example        : 
+         *      
+         *      encoGrid.setList([
+         *          {key1 : 1, key1 : 2},
+         *          {key1 : 1, key1 : 2},
+         *          {key1 : 1, key1 : 2}
+         *      ])
+         */
+        var _saveList = function _saveList(list) {
+            
+            // set list
+            var frozenRowIndex = this.config.body.frozenRowIndex,
+                     leftElStr = "",
+                     bodyElStr = ""
+               leftHaveKeyCols = this.columns.leftHaveKey,
+               bodyHaveKeyCols = this.columns.bodyHaveKey,
+                       mapList = [],
+                realDataHeight = 0,
+                     cellWidth = this.gridStateInfos.body.cellWidth,
+                    cellHeight = this.gridStateInfos.body.cellHeight,
+                    oneLineRow = this.gridStateInfos.body.oneLineRow;
+            
+                    
+            console.table(leftHaveKeyCols)
+            console.table(bodyHaveKeyCols)
+            
+                 
+            list.forEach(function(o, i) {               
+                var tempLv = -1,
+               tempTrCount = 0,
+                       map = {};
+                
+//              leftElStr += (i==0 ? "<tr>" : "</tr><tr>")
+                
+                leftHaveKeyCols.forEach(function(oo, ii) {
+                    if(tempLv != oo["lv"]) {
+                        tempTrCount++;
+                        realDataHeight += cellHeight;
+                        leftElStr += tempLv == -1 ? "<tr height='"+cellHeight+"px'>" : "</tr><tr height='"+cellHeight+"px'>"
+                        tempLv = oo["lv"]
+                        
+                    }
+                    
+                    map[oo.rowMap] = map[oo.rowMap]||{};
+                    
+                    if(o.hasOwnProperty(oo.key)) {
+                        map[oo.rowMap][oo.colMap] = o[oo.key]
+                        leftElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\">"+o[oo.key]+"</td>"
+//                      leftElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\">"+oo.rowMap + ',' + oo.colMap + ',' + oo.rowspan + ',' + oo.colspan +"</td>"
+                    } else {
+                        map[oo.rowMap][oo.colMap] = undefined
+                        leftElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\"></td>"
+                    }
+                })
+                
+                if(tempLv > -1) {
+                    leftElStr += "</tr>";
+                    
+                    // Insert Empty Tr
+                    for(i=0, max=oneLineRow-tempTrCount; i<max; i++) {
+                        leftElStr += "<tr height='"+cellHeight+"px'></>"
+                    }
+                    
+                    tempLv = -1;
+                }
+                
+                
+                    
+                bodyElStr += (i==0 ? "<tr>" : "</tr><tr>")
+                bodyHaveKeyCols.forEach(function(oo, ii) {
+                    map[oo.rowMap] = map[oo.rowMap]||{};
+                    
+                    
+                    bodyElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\">"
+                    
+                    if(o.hasOwnProperty(oo.key)) {
+                        map[oo.rowMap][oo.colMap] = o[oo.key]
+                        bodyElStr += o[oo.key] + "</td>"
+                    } else {
+                        map[oo.rowMap][oo.colMap] = undefined
+                        bodyElStr += "</td>"
+                    }
+                })
+                mapList.push(map)
+            })
+            
+            // GRID Ref!!
+            this.gridStateInfos.body.realDataHeight = realDataHeight;
+            
+            console.log(leftElStr)
+            
+            this.element.find("[" + this.dataGroup.map.lf_bd_tb + "]:first")
+                .append(leftElStr)
+            this.element.find("[" + this.dataGroup.map.bd_bd_tb + "]:first")
+//              .append(bodyElStr)
+            
+                
+            
+        }
+        
+        /*    private
+         * @ 메소드 명          : (SRCH) _serRefEl 
+         * @ 설명             : 그리드 객체 내 원활한 객체 참조를 위해 참조 변수 저장 
+         * @ save prototype : encoGrid.$.*
+         * @ parameter      : undefined
+         * @ return         : undefined
+         * @ example        : 
+         */
+        var _saveRefAddress = function _saveRefAddress() {
+            
+            /* Save Object */
+            this.$["pan"]          = this.element;
+            this.$.pan_hd          = this.element.find("[data-enco_map = \"pan_hd\"]:first");
+            this.$.pan_titl        = this.element.find("[data-enco_map = \"pan_titl\"]:first");
+            this.$.pan_ctl_btn_grp = this.element.find("[data-enco_map = \"pan_ctl_btn_grp\"]:first");
+            this.$.tb_wp           = this.element.find("[data-enco_map = \"tb_wp\"]:first");
+            this.$.tb_hd_wp        = this.element.find("[data-enco_map = \"tb_hd_wp\"]:first");
+            this.$.tb_bd_wp        = this.element.find("[data-enco_map = \"tb_bd_wp\"]:first");
+            this.$.sd_hd_wp        = this.element.find("[data-enco_map = \"sd_hd_wp\"]:first");
+            this.$.sd_hd_tb        = this.element.find("[data-enco_map = \"sd_hd_tb\"]:first");
+            this.$.sd_tp_wp        = this.element.find("[data-enco_map = \"sd_tp_wp\"]:first");
+            this.$.sd_tp_tb        = this.element.find("[data-enco_map = \"sd_tp_tb\"]:first");
+            this.$.sd_bd_tb        = this.element.find("[data-enco_map = \"sd_bd_tb\"]:first");
+            this.$.sd_bd_wp        = this.element.find("[data-enco_map = \"sd_bd_wp\"]:first");
+            this.$.lf_hd_wp        = this.element.find("[data-enco_map = \"lf_hd_wp\"]:first");
+            this.$.lf_hd_tb        = this.element.find("[data-enco_map = \"lf_hd_tb\"]:first");
+            this.$.lf_tp_wp        = this.element.find("[data-enco_map = \"lf_tp_wp\"]:first");
+            this.$.lf_tp_tb        = this.element.find("[data-enco_map = \"lf_tp_tb\"]:first");
+            this.$.lf_bd_wp        = this.element.find("[data-enco_map = \"lf_bd_wp\"]:first");
+            this.$.lf_bd_tb        = this.element.find("[data-enco_map = \"lf_bd_tb\"]:first");
+            this.$.bd_hd_wp        = this.element.find("[data-enco_map = \"bd_hd_wp\"]:first");
+            this.$.bd_hd_tb        = this.element.find("[data-enco_map = \"bd_hd_tb\"]:first");
+            this.$.bd_tp_wp        = this.element.find("[data-enco_map = \"bd_tp_wp\"]:first");
+            this.$.bd_tp_tb        = this.element.find("[data-enco_map = \"bd_tp_tb\"]:first");
+            this.$.bd_bd_wp        = this.element.find("[data-enco_map = \"bd_bd_wp\"]:first");
+            this.$.bd_bd_tb        = this.element.find("[data-enco_map = \"bd_bd_tb\"]:first");
+            this.$.bd_ft_wp        = this.element.find("[data-enco_map = \"bd_ft_wp\"]:first");
+            this.$.bd_ft_tb        = this.element.find("[data-enco_map = \"bd_ft_tb\"]:first");
+            this.$.tb_sd_br        = this.element.find("[data-enco_map = \"tb_sd_br\"]:first");
+            this.$.tb_bt_br        = this.element.find("[data-enco_map = \"tb_bt_br\"]:first");
+            /* Save Object -END*/
+        }
+        
+        /*    private
+         * @ 메소드 명          : (SRCH) _nullThrow 
+         * @ 설명             : undefined 일 시 throw 한다.
+         * @ parameter      : {array|object|number|string} value 
+         * @ return         : value
+         * @ example        : 
+         * 
+         *      var t = encoGrid._nullThrow(text);
+         */
+        var _nullThrow = function _nullThrow(value){
+            if([null, undefined].indexOf(typeof value) != -1) {
+                console.error(value)
+                throw new Error("[value] is undefined or null");
+            }
+        }
 	
 //			this.element.find("["+this.dataGroup.map.tb_bt_br+"]:first")
 			// 가로
-
-		
-		
-		
-		/**
-		 * @Method : encoGrid.setConfig
-		 * @작성일 : 2020. 5. 2.
-		 * @작성자 : 이동원
-		 * @Desc : 구성을 재정의 한다.
-		 * @param : _config
-		 */
-		this.setConfig = function(_config) {
-			
-			this.config = $.extend(true, this.config, _config)
-			// 생성 또는 panel config가 다르면 repaint panel header
-			if(this.newFlag
-			|| Object.keys(_config).indexOf("panel") != -1) 
-				this.repaint("panel");
-			
-			// 생성 또는 header config가 다르면 repaint panel header
-			if(!this.newFlag
-			|| Object.keys(_config).indexOf("header") != -1) 
-				this.repaint("header");
-			
-			// 생성 또는 body config가 다르면 repaint panel header
-			if(!this.newFlag
-			|| Object.keys(_config).indexOf("body") != -1) 
-				this.repaint("body");
-			
-		}
-		
-		/** {
-		 * 		leftColgroup : ""
-		 * 		bodyColgroup : "" 
-		 * 		leftColumns  : ""
-		 * 		bodyColumns  : ""
-		 *  }
-		 */ 
-		this._getColumnStrObj = function(_columns) {
-			
-			u.isEnableTypes(["array"], [_columns])
+	
+		/*    private
+         * @ 메소드 명  	    : (SRCH) _saveColumn
+         * @ 설명                     : column을 입력 받아 객체 내 가공 컬럼 저장
+         * @ save prototype : {array} encoGrid.columns.*            
+         * @ parameter      : {array} encoGrid.config.header.column
+         * @ return  		: undefined
+         */
+		var _saveColumn = function _saveColumn(columns) {
+		    
+		    /* Required Type Check */
+			u.isEnableTypes(["array"], [columns])
 			
 			var target 		  = this,
 			frozenColumnIndex = this.config.body.frozenColumnIndex,
@@ -439,14 +568,15 @@
 			haveKeyColumnsStr = {},			
 						maxLv = 0,
 					   maxCol = 0,
-				   oneLineRow = 0,
-			   colGroupStrArr = [];
+				   oneLineRow = 0;
 			
 			(function _colsLoop(defaultWidth, columns, parentSeq, _lv, gridWidth) {
 				
 				columns.forEach(function(o, i) {
 					// 하위 컬럼을 가질경우
 					if(!!o["columns"]) {
+					    
+					    /* Required Type Check */
 						u.isEnableTypes(["array"], [o["columns"]])
 
 						allColumns.push({
@@ -467,9 +597,7 @@
 						var _width = o.width ? target._convertToPx(gridWidth, o.width) : defaultWidth;
 						dataSumWidth += _width;
 							
-						colGroupStrArr.push("<col style='width:"+ _width +"px'\>")
-						
-						
+						/* Throw Error */
 						if(!o.hasOwnProperty('key')) {
 							console.error(o)
 							throw new Error("none key")
@@ -530,7 +658,7 @@
 					}
 					
 				})
-			}(this.gridStateInfos.head.cellWidth, _columns, undefined, 0, this.gridStateInfos.panel.width))
+			}(this.gridStateInfos.head.cellWidth, columns, undefined, 0, this.gridStateInfos.panel.width))
 			
 			// Set Column Map
 			var rowMap = 0,
@@ -662,62 +790,9 @@
 			}
 			// Set LeftHaveKeyColumns, BodyHaveKeyColumns -END
 							
-			colGroupStrArr.push("<col style='width:*'>")
-			
-			var leftColGroupElStr = "",
-				bodyColGroupElStr = ""	
-			for(i=0, max=colGroupStrArr.length; i<max; i++) {
-				i <= frozenColumnIndex ? leftColGroupElStr += colGroupStrArr[i] 
-									   : bodyColGroupElStr += colGroupStrArr[i]
-			}
-			
-			function getWidthFromColumns(columns) {
-				var result = 0;
-				for(i=0, max=columns.length; i<max; i++) {
-					result += columns[i]["width"]||0;
-				}
-				return result;
-			 }
-			
-			function _getWidthFromColumns(columns) {
-				var result = 0;
-				for(i=0, max=columns.length; i<max; i++) {
-					result += columns[i]["width"]||0;
-				}
-				return result;
-			 }
-			
-			function _getCellElStrFromColumns(cols, height, _maxLv) {
-				var _result = "",
-					    _lv = -1
-					trCount = 0;
-				$.each(cols, function(i, o) {
-					
-					if(_lv != o["lv"] ) {
-						trCount++;
-						_result += _lv== -1 ? "<tr height='"+height+"px'>" : "</tr><tr height='"+height+"px'>"
-						_lv = o["lv"]
-					}
 		
-					_result += "<th rowspan=\""+o["rowspan"]+"\" colspan=\""+o["colspan"]+"\" data-rowIndex=\""+o["rowMap"]+"\" data-colIndex=\""+o["colMap"]+"\">"+o["label"]+"</th>"
-					
-					// 좌표 테스트
-//					_result += "<th rowspan=\""+o["rowspan"]+"\" colspan=\""+o["colspan"]+"\" data-row_index=\""+o["rowMap"]+"\" data-col_index=\""+o["colMap"]+"\">"+o["rowMap"] + "," + o["colMap"] +"</th>"
-				})
-				
-				if(_lv > -1) {
-					_result = _result + "</tr>";
-					
-					// Insert Empty Tr
-					for(i=0, max=_maxLv-trCount; i<max; i++) {
-						_result += "<tr height='"+height+"px'></>"
-					}
-				}
-				
-				return _result ;
-			} 
 			
-			// GRID Ref!!
+			/* Save Object */
 			this.gridStateInfos.head.maxRowLv = maxLv;
 			this.gridStateInfos.panel.realDataWidth = dataSumWidth;
 			this.gridStateInfos.head.height = maxLv * this.gridStateInfos.head.cellHeight;
@@ -728,23 +803,40 @@
 			this.columns.left = leftColumns
 			this.columns.body = bodyColumns
 			
-			
 			this.columns.haveKey = haveKeyColumns
 			this.columns.leftHaveKey = leftHaveKeyColumns
 			this.columns.bodyHaveKey = bodyHaveKeyColumns
+			/* Save Object -END */
 			
-			// tagStr 변환
-			return {
-					  leftColgroup : leftColGroupElStr
-					, bodyColgroup : bodyColGroupElStr
-					, leftWidth    : _getWidthFromColumns(leftColumns)
-					, bodyWidth    : _getWidthFromColumns(bodyColumns) 
-					, leftColumns  : _getCellElStrFromColumns(leftColumns, this.gridStateInfos.head.cellHeight, maxLv)
-					, bodyColumns  : _getCellElStrFromColumns(bodyColumns, this.gridStateInfos.head.cellHeight, maxLv)
-			}
-								
 			this.repaint("body");
 		}
+		
+		/**
+         * @Method : encoGrid.setConfig
+         * @작성일 : 2020. 5. 2.
+         * @작성자 : 이동원
+         * @Desc : 구성을 재정의 한다.
+         * @param : _config
+         */
+        this.setConfig = function(_config) {
+            
+            this.config = $.extend(true, this.config, _config)
+            // 생성 또는 panel config가 다르면 repaint panel header
+            if(this.newFlag
+            || Object.keys(_config).indexOf("panel") != -1) 
+                this.repaint("panel");
+            
+            // 생성 또는 header config가 다르면 repaint panel header
+            if(!this.newFlag
+            || Object.keys(_config).indexOf("header") != -1) 
+                this.repaint("header");
+            
+            // 생성 또는 body config가 다르면 repaint panel header
+            if(!this.newFlag
+            || Object.keys(_config).indexOf("body") != -1) 
+                this.repaint("body");
+            
+        }
 		
 		this._getSideColumns = function() {
 			
@@ -907,27 +999,20 @@
 		}
 		
 		
-		/**
-		 * @Method : encoGrid.getAllList
-		 * @작성일 : 2020. 5. 10.
-		 * @작성자 : 이동원
-		 * @Desc : 빈 값을 포함한 모든 데이터 리턴
-		 * @param :
-		 * @return : {array} [{...}, ...]
-		 */
-		this.getAllList = function() {
-			return this.list;
-		}
-		
-		/**
-		 * @Method : encoGrid.getList
-		 * @작성일 : 2020. 5. 10.
-		 * @작성자 : 이동원
-		 * @Desc : 빈 값을 미포함한 데이터 리턴
-		 * @param :
-		 * @return : {array} [{...}, ...]
-		 */
-		this.getList = function() {
+		/* 
+         * @ 메소드 명  	    : (SRCH) getList 
+         * @ 설명				: 그리드 내 데이터 리턴
+         * @ parameter  	: {boolean} containEmptyData 
+         * @ return  		: {array} list
+         * @ example 		: 
+         * 
+         *      encoGrid.getList(false) or encoGrid.getList()
+         *          // 빈 데이터를 포함하지 않음
+         *          
+         *      encoGrid.getList(true)
+         *          // 빈 데이터 포함 {key : undefined}
+         */
+		this.getList = function(containEmptyData) {
 			return function() {
 				var _result = []
 				
@@ -946,178 +1031,17 @@
 			}.call(this)
 		}
 		
-		/**
-		 * @Method : encoGrid.setList
-		 * @작성일 : 2020. 5. 4.
-		 * @작성자 : 이동원
-		 * @Desc : setlist
-		 * @param :
-		 * @return :
-		 */
 		this.setList = function(list) {
-			
-			// set list
-			var frozenRowIndex = this.config.body.frozenRowIndex,
-					 leftElStr = "",
-				     bodyElStr = ""
-			   leftHaveKeyCols = this.columns.leftHaveKey,
-			   bodyHaveKeyCols = this.columns.bodyHaveKey,
-			           mapList = [],
-			    realDataHeight = 0,
-				     cellWidth = this.gridStateInfos.body.cellWidth,
-				    cellHeight = this.gridStateInfos.body.cellHeight,
-				    oneLineRow = this.gridStateInfos.body.oneLineRow;
-			
-					
-			console.table(leftHaveKeyCols)
-			console.table(bodyHaveKeyCols)
-			
-				 
-			list.forEach(function(o, i) {				
-				var tempLv = -1,
-			   tempTrCount = 0,
-					   map = {};
-				
-//				leftElStr += (i==0 ? "<tr>" : "</tr><tr>")
-				
-				leftHaveKeyCols.forEach(function(oo, ii) {
-					if(tempLv != oo["lv"]) {
-						tempTrCount++;
-						realDataHeight += cellHeight;
-						leftElStr += tempLv == -1 ? "<tr height='"+cellHeight+"px'>" : "</tr><tr height='"+cellHeight+"px'>"
-						tempLv = oo["lv"]
-						
-					}
-					
-					map[oo.rowMap] = map[oo.rowMap]||{};
-					
-					if(o.hasOwnProperty(oo.key)) {
-						map[oo.rowMap][oo.colMap] = o[oo.key]
-						leftElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\">"+o[oo.key]+"</td>"
-//						leftElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\">"+oo.rowMap + ',' + oo.colMap + ',' + oo.rowspan + ',' + oo.colspan +"</td>"
-					} else {
-						map[oo.rowMap][oo.colMap] = undefined
-						leftElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\"></td>"
-					}
-				})
-				
-				if(tempLv > -1) {
-					leftElStr += "</tr>";
-					
-					// Insert Empty Tr
-					for(i=0, max=oneLineRow-tempTrCount; i<max; i++) {
-						leftElStr += "<tr height='"+cellHeight+"px'></>"
-					}
-					
-					tempLv = -1;
-				}
-				
-				
-					
-				bodyElStr += (i==0 ? "<tr>" : "</tr><tr>")
-				bodyHaveKeyCols.forEach(function(oo, ii) {
-					map[oo.rowMap] = map[oo.rowMap]||{};
-					
-					
-					bodyElStr += "<td colspan=\""+oo.colspan+"\" rowspan=\""+oo.rowspan+"\" data-col_index=\""+oo.colMap+"\" data-row_index=\""+oo.rowMap+"\">"
-					
-					if(o.hasOwnProperty(oo.key)) {
-						map[oo.rowMap][oo.colMap] = o[oo.key]
-						bodyElStr += o[oo.key] + "</td>"
-					} else {
-						map[oo.rowMap][oo.colMap] = undefined
-						bodyElStr += "</td>"
-					}
-				})
-				mapList.push(map)
-			})
-			
-			// GRID Ref!!
-			this.gridStateInfos.body.realDataHeight = realDataHeight;
-			
-			console.log(leftElStr)
-			
-			this.element.find("[" + this.dataGroup.map.lf_bd_tb + "]:first")
-				.append(leftElStr)
-			this.element.find("[" + this.dataGroup.map.bd_bd_tb + "]:first")
-//				.append(bodyElStr)
-			
-				
-			
-		},
+		    console.log(this)
+		    _saveList.call(this, list)
+		}
 		
-		this._setRefEl = function() {
-
-			this.$["pan"] = this.element;
-			this.$.pan_hd = this.element.find("[data-enco_map = \"pan_hd\"]:first");
-			this.$.pan_titl = this.element.find("[data-enco_map = \"pan_titl\"]:first");
-			this.$.pan_ctl_btn_grp = this.element.find("[data-enco_map = \"pan_ctl_btn_grp\"]:first");
-			this.$.tb_wp = this.element.find("[data-enco_map = \"tb_wp\"]:first");
-			this.$.tb_hd_wp = this.element.find("[data-enco_map = \"tb_hd_wp\"]:first");
-			this.$.tb_bd_wp = this.element.find("[data-enco_map = \"tb_bd_wp\"]:first");
-			this.$.sd_hd_wp = this.element.find("[data-enco_map = \"sd_hd_wp\"]:first");
-			this.$.sd_hd_tb = this.element.find("[data-enco_map = \"sd_hd_tb\"]:first");
-			this.$.sd_tp_wp = this.element.find("[data-enco_map = \"sd_tp_wp\"]:first");
-			this.$.sd_tp_tb = this.element.find("[data-enco_map = \"sd_tp_tb\"]:first");
-			this.$.sd_bd_tb = this.element.find("[data-enco_map = \"sd_bd_tb\"]:first");
-			this.$.sd_bd_wp = this.element.find("[data-enco_map = \"sd_bd_wp\"]:first");
-			this.$.lf_hd_wp = this.element.find("[data-enco_map = \"lf_hd_wp\"]:first");
-			this.$.lf_hd_tb = this.element.find("[data-enco_map = \"lf_hd_tb\"]:first");
-			this.$.lf_tp_wp = this.element.find("[data-enco_map = \"lf_tp_wp\"]:first");
-			this.$.lf_tp_tb = this.element.find("[data-enco_map = \"lf_tp_tb\"]:first");
-			this.$.lf_bd_wp = this.element.find("[data-enco_map = \"lf_bd_wp\"]:first");
-			this.$.lf_bd_tb = this.element.find("[data-enco_map = \"lf_bd_tb\"]:first");
-			this.$.bd_hd_wp = this.element.find("[data-enco_map = \"bd_hd_wp\"]:first");
-			this.$.bd_hd_tb = this.element.find("[data-enco_map = \"bd_hd_tb\"]:first");
-			this.$.bd_tp_wp = this.element.find("[data-enco_map = \"bd_tp_wp\"]:first");
-			this.$.bd_tp_tb = this.element.find("[data-enco_map = \"bd_tp_tb\"]:first");
-			this.$.bd_bd_wp = this.element.find("[data-enco_map = \"bd_bd_wp\"]:first");
-			this.$.bd_bd_tb = this.element.find("[data-enco_map = \"bd_bd_tb\"]:first");
-			this.$.bd_ft_wp = this.element.find("[data-enco_map = \"bd_ft_wp\"]:first");
-			this.$.bd_ft_tb = this.element.find("[data-enco_map = \"bd_ft_tb\"]:first");
-			this.$.tb_sd_br = this.element.find("[data-enco_map = \"tb_sd_br\"]:first");
-			this.$.tb_bt_br = this.element.find("[data-enco_map = \"tb_bt_br\"]:first");
-		},
+		
+		
+		
 		
 		
 // *********************util*********************************************************
-		/**
-		 * @Method : encoGrid.getClass
-		 * @작성일 : 2020. 5. 2.
-		 * @작성자 : 이동원
-		 * @Desc : encoGrid.config.classes 내 키값에 대한 value를 반환한다.
-		 * @param : string
-		 * @return : string
-		 */
-		this.getClass = function(_class) {
-			if(!_class || !this.config.classes[_class]) {
-				console.error(_class + " is none");
-				return '';
-			}
-			return this.config.classes[_class]
-		},
-		
-		/**
-		 * @Method : encoGrid._valiClassCss
-		 * @작성일 : 2020. 5. 9.
-		 * @작성자 : 이동원
-		 * @Desc : 클래스 내 해당하는 속성값만 가져온다. 
-		 * @param : {string} tagNm
-		 * 		  , {string} classNm
-		 * 	      , {array} valiAttr
-		 * @return : {array} _attr
-		 */
-		this._valiClassCss = function(tagNm, classNm, valiAttr) {
-			
-			var _attr = []
-			
-			u.isEnableTypes(["string"], [tagNm, classNm])
-			u.isEnableTypes(["array"], [valiAttr])
-			
-			var _el = $(document.createElement(tagNm))
-						.addClass(classNm)
-			console.log($(_el).attr("font-size"))
-		}
 		
 		this._convertToPx = function(parentCont, objCont) {
 			
@@ -1143,7 +1067,9 @@
 				return objCont;
 			}
 			
-		}
+		},
+		
+		
 		
 // ***********************constructor*************************************************		
 		/**
@@ -1153,12 +1079,12 @@
 		 * @param : config
 		 */
 		this.main = function(_config) {
+		    
+		    
 
-			Object.freeze(this.dataGroup)
-			// merge config
+			/* Save Object */
 			this.config = $.extend(true, this.config, _config);
 			
-			// set grid State
 			this.gridStateInfos.panel.height = this._convertToPx(window.innerHeight, this.config.panel.height)
 			this.gridStateInfos.panel.width  = this._convertToPx(window.innerWidth, this.config.panel.width)
 			this.gridStateInfos.panel.titleHeight = this._convertToPx(window.innerHeight, this.config.panel.titleHeight)
@@ -1172,11 +1098,11 @@
 			this.gridStateInfos.side.lineSortCellWidth  = this._convertToPx(undefined, this.config.body.side.lineSort.cellWidth)
 			this.gridStateInfos.side.selectCellWidth  = this._convertToPx(undefined, this.config.body.side.select.cellWidth)
 			
-			
 			this.classes = $.extend(true, this.classes, this.config.classes)
+			/* Save Object -END*/
 			
-			// set new Grid
-			this._create.call(this);
+			// 최초 그리드 생성
+			_create.call(this);
 			
 		}.call(this, _bindingConfig)
 		
@@ -1198,7 +1124,6 @@
 			setColumns : this.setColumns,
 			setList : this.setList,
 			getList : this.getList,
-			getAllList : this.getAllList,
 			map : this.dataGroup
 			
 			
